@@ -91,6 +91,16 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
 
+### `artifacts/intellicredit` (`@workspace/intellicredit`)
+
+React + Vite frontend for the IntelliCredit AI Credit Underwriting Engine. Single-page 4-step wizard with no external UI libraries. All CSS is inline via a `<style>` tag in `App.tsx`.
+
+- Entry: `src/main.tsx` → `src/App.tsx` (entire application)
+- **Fonts**: Cormorant Garamond (serif headings/body text) + IBM Plex Mono (data/code)
+- **Theme**: Dark (navy #080d1a + gold #c9a84c) and Light (cream #f9f6f0) toggle via `.light` class on `#root`
+- **AI Integration**: Calls `POST /api/ai/analyze` (proxied to api-server) with 30s AbortController timeout. Falls back to rich hardcoded data automatically on timeout or error.
+- **Steps**: Entity Onboarding → Data Ingestion → Classification & Schema → AI Analysis & CAM Report
+
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
