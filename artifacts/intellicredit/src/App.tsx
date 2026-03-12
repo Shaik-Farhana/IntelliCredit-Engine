@@ -701,8 +701,6 @@ export default function IntelliCredit() {
       <header className="ic-header">
         <div style={{ display:"flex", alignItems:"center", gap:".7rem" }}>
           <div className="ic-logo">Intelli<span>Credit</span></div>
-          <span className="chip chip-gold">PROTOTYPE v1.0</span>
-          <span className="chip chip-cyan">HACKATHON BUILD</span>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:".75rem" }}>
           <span style={{ fontSize:".63rem", color:"var(--txt3)", fontStyle:"italic" }}>AI-Powered Corporate Credit Engine</span>
