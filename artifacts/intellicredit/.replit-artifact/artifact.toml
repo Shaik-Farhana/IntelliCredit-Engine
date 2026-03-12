@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "IntelliCredit"
+version = "1.0.0"
+id = "artifacts/intellicredit"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 19011
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/intellicredit run dev"
+
+[services.env]
+PORT = "19011"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/intellicredit", "run", "build"]
+publicDir = "artifacts/intellicredit/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

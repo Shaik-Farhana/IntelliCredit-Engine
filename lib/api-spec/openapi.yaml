@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -10,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: ai
+    description: AI analysis operations
 paths:
   /healthz:
     get:
@@ -24,6 +25,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /ai/analyze:
+    post:
+      operationId: runAiAnalysis
+      tags: [ai]
+      summary: Run AI credit analysis
+      description: Calls Anthropic Claude to generate SWOT, recommendation, and CAM report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AiAnalysisRequest"
+      responses:
+        "200":
+          description: AI analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiAnalysisResponse"
+        "500":
+          description: Analysis failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +59,93 @@ components:
           type: string
       required:
         - status
-
+    AiAnalysisRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+        sector:
+          type: string
+        loanAmount:
+          type: number
+        loanType:
+          type: string
+        extractedData:
+          type: object
+          additionalProperties: true
+      required:
+        - companyName
+        - sector
+        - loanAmount
+        - loanType
+        - extractedData
+    SwotAnalysis:
+      type: object
+      properties:
+        strengths:
+          type: array
+          items:
+            type: string
+        weaknesses:
+          type: array
+          items:
+            type: string
+        opportunities:
+          type: array
+          items:
+            type: string
+        threats:
+          type: array
+          items:
+            type: string
+      required:
+        - strengths
+        - weaknesses
+        - opportunities
+        - threats
+    Recommendation:
+      type: object
+      properties:
+        decision:
+          type: string
+        suggestedAmount:
+          type: string
+        suggestedRate:
+          type: string
+        reasoning:
+          type: string
+        conditions:
+          type: array
+          items:
+            type: string
+        compositeScore:
+          type: number
+      required:
+        - decision
+        - suggestedAmount
+        - suggestedRate
+        - reasoning
+        - conditions
+        - compositeScore
+    AiAnalysisResponse:
+      type: object
+      properties:
+        swot:
+          $ref: "#/components/schemas/SwotAnalysis"
+        recommendation:
+          $ref: "#/components/schemas/Recommendation"
+        camReport:
+          type: string
+      required:
+        - swot
+        - recommendation
+        - camReport
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: string
+      required:
+        - error

@@ -6,4 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./aiAnalysisRequest";
+export * from "./aiAnalysisRequestExtractedData";
+export * from "./aiAnalysisResponse";
+export * from "./errorResponse";
 export * from "./healthStatus";
+export * from "./recommendation";
+export * from "./swotAnalysis";

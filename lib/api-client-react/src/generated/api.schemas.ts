@@ -8,3 +8,40 @@
 export interface HealthStatus {
   status: string;
 }
+
+export type AiAnalysisRequestExtractedData = { [key: string]: unknown };
+
+export interface AiAnalysisRequest {
+  companyName: string;
+  sector: string;
+  loanAmount: number;
+  loanType: string;
+  extractedData: AiAnalysisRequestExtractedData;
+}
+
+export interface SwotAnalysis {
+  strengths: string[];
+  weaknesses: string[];
+  opportunities: string[];
+  threats: string[];
+}
+
+export interface Recommendation {
+  decision: string;
+  suggestedAmount: string;
+  suggestedRate: string;
+  reasoning: string;
+  conditions: string[];
+  compositeScore: number;
+}
+
+export interface AiAnalysisResponse {
+  swot: SwotAnalysis;
+  recommendation: Recommendation;
+  camReport: string;
+}
+
+export interface ErrorResponse {
+  error: string;
+  details?: string;
+}

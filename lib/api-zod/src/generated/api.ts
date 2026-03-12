@@ -14,3 +14,33 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Calls Anthropic Claude to generate SWOT, recommendation, and CAM report
+ * @summary Run AI credit analysis
+ */
+export const RunAiAnalysisBody = zod.object({
+  companyName: zod.string(),
+  sector: zod.string(),
+  loanAmount: zod.number(),
+  loanType: zod.string(),
+  extractedData: zod.record(zod.string(), zod.unknown()),
+});
+
+export const RunAiAnalysisResponse = zod.object({
+  swot: zod.object({
+    strengths: zod.array(zod.string()),
+    weaknesses: zod.array(zod.string()),
+    opportunities: zod.array(zod.string()),
+    threats: zod.array(zod.string()),
+  }),
+  recommendation: zod.object({
+    decision: zod.string(),
+    suggestedAmount: zod.string(),
+    suggestedRate: zod.string(),
+    reasoning: zod.string(),
+    conditions: zod.array(zod.string()),
+    compositeScore: zod.number(),
+  }),
+  camReport: zod.string(),
+});
